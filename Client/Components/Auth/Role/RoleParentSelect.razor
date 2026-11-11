@@ -1,0 +1,50 @@
+﻿@using Despro.Blazor.Base.Components
+@using Despro.Blazor.Display.Components.TreeViews
+@using Services.Models._AuthDtos.RoleDtos
+@inherits BaseComponent
+
+
+<Card StatusTop="BaseColor.Primary">
+    <CardHeader>
+        <strong>نقش ها</strong>
+    </CardHeader>
+    <CardBody>
+        <Row>
+            <RowCol Md="12">
+                <TreeView @ref="RoleTreeView"
+                          TItem="@RoleGetChildDto"
+                          Items="@Roles"
+                          ChildSelectorAsync="e => GetSub(e)"
+                          SelectedItem="SelectedRole"
+                          SelectedItemChanged="OnSelectedChanged">
+                    <Template>
+                        <Card StatusStart="BaseColor.Green" Size="CardSize.Small">
+                            <CardBody style="padding:0.5rem">
+                                <span>@context.Name</span>
+                            </CardBody>
+                        </Card>
+                    </Template>
+                </TreeView>
+            </RowCol>
+        </Row>
+    </CardBody>
+    <CardFooter>
+        <div style="text-align: center;">
+            <Button BackgroundColor="BaseColor.Green"
+                    OnClick="Submit"
+                    Type="ButtonType.Button">
+                ثبت
+            </Button>
+            <Button BackgroundColor="BaseColor.Red"
+                    OnClick="ClearAccess"
+                    Type="ButtonType.Button">
+                پاک کردن همه
+            </Button>
+            <Button BackgroundColor="BaseColor.Red"
+                    OnClick="Close"
+                    Type="ButtonType.Button">
+                خروج
+            </Button>
+        </div>
+    </CardFooter>
+</Card>

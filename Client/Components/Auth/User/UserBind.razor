@@ -1,0 +1,21 @@
+﻿@page "/User/Bind"
+
+@using Despro.Blazor.Base.Components
+@using Services.Models._AuthDtos.UserDtos
+@inherits BaseComponent
+
+
+<Table Item="UserGetGridDto" @bind-Items="_gridData" OnBindGrid=@OnBind>
+    <HeaderTemplate>
+        <strong>لیست کاربران ها</strong>
+    </HeaderTemplate>
+
+    <ChildContent>
+        <Column Item="UserGetGridDto" Property="e => e.FullName" Title="نام" Searchable Sortable />
+        <Column Item="UserGetGridDto" Property="e => e.UserName" Title="شماره تماس" Searchable Sortable />
+        <Column Item="UserGetGridDto" Property="e => e.LockoutEnabled" Title="وضعیت حساب" Searchable Sortable />
+        <Column Item="UserGetGridDto" Property="e => e.CreateDate" Title="تاریخ ثبت نام" />
+        <Column Item="UserGetGridDto" Property="e => e.CartCount" Title="تعداد سفارش در انتظار" Sortable SearchExpression="Carts.Count" />
+        <Column Item="UserGetGridDto" Property="e => e.OrderCount" Title="تعداد سفارش" Sortable SearchExpression="Orders.Count" />
+    </ChildContent>
+</Table>

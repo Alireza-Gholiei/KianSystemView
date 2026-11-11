@@ -1,0 +1,158 @@
+﻿@page "/Employe/EmployeAdd"
+
+@attribute [StreamRendering]
+@using Services.Models._AuthDtos.LocationDtos
+@using Services.Models.EmployeDtos
+@inherits BaseComponent
+
+<Card StatusTop="BaseColor.Primary">
+    <CardBody>
+        <CardHeader>
+            <h3>افزودن سرباز</h3>
+        </CardHeader>
+        <Form Model="@Employe" OnValidSubmit="Submit">
+            <Row>
+                <RowCol Md="3">
+                    <label class="form-label">نام</label>
+                    <InputText class="form-control" @bind-Value="@Employe.FirstName"></InputText>
+                    <ValidationControl For="(() => Employe.FirstName)"></ValidationControl>
+                </RowCol>
+                <RowCol Md="3">
+                    <label class="form-label">نام خانوادگی</label>
+                    <InputText class="form-control" @bind-Value="@Employe.LastName"></InputText>
+                    <ValidationControl For="(() => Employe.LastName)"></ValidationControl>
+                </RowCol>
+                <RowCol Md="3">
+                    <label class="form-label">نام پدر</label>
+                    <InputText class="form-control" @bind-Value="@Employe.FatherName"></InputText>
+                    <ValidationControl For="(() => Employe.FatherName)"></ValidationControl>
+                </RowCol>
+                <RowCol Md="3">
+                    <label class="form-label">شماره شناسنامه</label>
+                    <InputText class="form-control" @bind-Value="@Employe.BirthCertificate"></InputText>
+                    <ValidationControl For="(() => Employe.BirthCertificate)"></ValidationControl>
+                </RowCol>
+                <RowCol Md="3">
+                    <label class="form-label">کدملی</label>
+                    <InputText class="form-control" @bind-Value="@Employe.NationalCode"></InputText>
+                    <ValidationControl For="(() => Employe.NationalCode)"></ValidationControl>
+                </RowCol>
+                <RowCol Md="3">
+                    <Datepicker @bind-SelectedDate="Employe.DateBirth" Label="تاریخ تولد" />
+                    <ValidationMessage For="(() => Employe.DateBirth)"></ValidationMessage>
+                </RowCol>
+                <RowCol Md="3">
+                    <Select TItem="LocationDto"
+                            TValue="LocationDto"
+                            Items="ListProvincesBirth"
+                            Label="استان محل تولد"
+                            Updated="BindCityBirth"
+                            @bind-SelectedValue="SelectedBirthProvince"
+                            TextExpression="e => e.Name"
+                            NoSelectedText="*انتخاب استان تولد*">
+                    </Select>
+                </RowCol>
+                <RowCol Md="3">
+                    <label class="form-label">شهرستان محل تولد</label>
+                    <Select Items="ListCitiesBirth"
+                            TextExpression="e => e.Name"
+                            ConvertExpression="x => x.Id"
+                            @bind-SelectedValue="Employe.CityPlaceofBirthId"
+                            NoSelectedText="*انتخاب شهر سکونت*">
+                    </Select>
+                    <ValidationControl For="(() => Employe.CityPlaceofBirthId)"></ValidationControl>
+                </RowCol>
+                <RowCol Md="3">
+                    <label class="form-label">شماره تماس</label>
+                    <InputText class="form-control" @bind-Value="@Employe.PhoneNumber"></InputText>
+                    <ValidationControl For="(() => Employe.PhoneNumber)"></ValidationControl>
+                </RowCol>
+                <RowCol Md="3">
+                    <label class="form-label">مدرک تحصیلی</label>
+                    <Select Items="ListEducationLevel"
+                            @bind-SelectedValue="Employe.LevelEducationId"
+                            TextExpression="e => e.EducationLevelName"
+                            ConvertExpression="x => x.Id"
+                            NoSelectedText="*مدرک تحصیلی*">
+                    </Select>
+                    <ValidationControl For="(() => Employe.LevelEducationId)"></ValidationControl>
+                </RowCol>
+                <RowCol Md="3">
+                    <label class="form-label">رشته ی تحصیلی</label>
+                    <InputText class="form-control" @bind-Value="@Employe.FieldofStudy"></InputText>
+                    <ValidationControl For="(() => Employe.FieldofStudy)"></ValidationControl>
+                </RowCol>
+                <RowCol Md="3">
+                    <Select TItem="ServiceLineTypeDto"
+                            TValue="long"
+                            Items="ListServiceLine"
+                            @bind-SelectedValue="Employe.ServiceLineId"
+                            Label="رسته خدمتی"
+                            TextExpression="e => e.Name"
+                            ConvertExpression="x => x.Id"
+                            NoSelectedText="*رسته خدمتی*">
+                    </Select>
+                    <ValidationControl For="(() => Employe.ServiceLineId)"></ValidationControl>
+                </RowCol>
+                <RowCol Md="3">
+                    <Select TItem="LocationDto"
+                            TValue="LocationDto"
+                            Items="ListProvincesAddress"
+                            Label="استان محل سکونت"
+                            NoSelectedText="*انتخاب استان سکونت*"
+                            Updated="BindCityAddress"
+                            @bind-SelectedValue="SelectedAddressProvince"
+                            For="() => SelectedAddressProvince"
+                            TextExpression="e => e.Name">
+                    </Select>
+                </RowCol>
+                <RowCol Md="3">
+                    <Select TItem="LocationDto"
+                            TValue="long"
+                            For="() => Employe.CityAddressId"
+                            Label="شهر محل سکونت"
+                            NoSelectedText="*انتخاب شهر سکونت*"
+                            Items="ListCitiesAddress"
+                            TextExpression="x => x.Name"
+                            ConvertExpression="x => x.Id"
+                            @bind-SelectedValue="Employe.CityAddressId">
+                    </Select>
+                    <ValidationMessage For="(() => Employe.CityAddressId)"></ValidationMessage>
+                </RowCol>
+                <RowCol Md="3">
+                    <label class="form-label">آدرس محل سکونت</label>
+                    <InputText class="form-control" @bind-Value="@Employe.Address"></InputText>
+                    <ValidationControl For="(() => Employe.Address)"></ValidationControl>
+                </RowCol>
+                <RowCol Md="3">
+                    <Datepicker @bind-SelectedDate="Employe.DayDispatch" Label="تاریخ اعزام" />
+                    <ValidationMessage For="(() => Employe.DayDispatch)"></ValidationMessage>
+                </RowCol>
+                <RowCol Md="3">
+                    <Datepicker @bind-SelectedDate="Employe.DayIntroductionUnit" Label="تاریخ معرفی به محل خدمت" />
+                    <ValidationMessage For="(() => Employe.DayIntroductionUnit)"></ValidationMessage>
+                </RowCol>
+                <RowCol Md="3">
+                    <Datepicker @bind-SelectedDate="Employe.DayLoginUnit" Label="تاریخ ورود به محل خدمت" />
+                    <ValidationMessage For="(() => Employe.DayLoginUnit)"></ValidationMessage>
+                </RowCol>
+                <RowCol Md="3">
+                    <label class="form-label">مهارت</label>
+                    <InputText class="form-control" @bind-Value="@Employe.Proficiency"></InputText>
+                    <ValidationControl For="(() => Employe.Proficiency)"></ValidationControl>
+                </RowCol>
+                <RowCol Md="6">
+                    <label class="form-label">توضیحات</label>
+                    <InputTextArea rows="8" class="form-control" @bind-Value="@Employe.Description"></InputTextArea>
+                    <ValidationControl For="(() => Employe.Description)"></ValidationControl>
+                </RowCol>
+                <RowCol Md="6">
+                    <DragDrop Label="تصویر سرباز" @bind-SelectedFile="Employe.PhotoFile">
+
+                    </DragDrop>
+                    <ValidationMessage For="(() => Employe.PhotoFile)"></ValidationMessage>
+                </RowCol>
+            </Row>
+        </Form>
+    </CardBody>
+</Card>

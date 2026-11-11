@@ -1,0 +1,35 @@
+﻿@attribute [StreamRendering]
+@inherits BaseComponent
+
+<Card StatusTop="BaseColor.Primary">
+    <CardBody>        
+        <EmployeDetail @bind-EmployeId="@ModelEditDto.EmployeId" />
+        <Form Model="@ModelEditDto" OnValidSubmit="Submit">
+            <Row>
+                <RowCol Md="3">
+                    <label class="form-label">نام پزشک</label>
+                    <InputText class="form-control" @bind-Value="@ModelEditDto.DoctorName"></InputText>
+                </RowCol>
+                <RowCol Md="3">
+                    <label class="form-label">نام پرستار</label>
+                    <InputText class="form-control" @bind-Value="@ModelEditDto.NurseName"></InputText>
+                </RowCol>
+                <RowCol Md="3">
+                    <label class="form-label">علت مراجعه</label>
+                    <InputText class="form-control" @bind-Value="@ModelEditDto.ReasonReferral"></InputText>
+                </RowCol>
+                <RowCol Md="3">
+                    <label class="form-label">اقلام و داوری مصرفی</label>
+                    <InputText class="form-control" @bind-Value="@ModelEditDto.ConsumableItems"></InputText>
+                </RowCol>
+                <RowCol Md="3">
+                    <label class="form-label">توضیحات</label>
+                    <InputText class="form-control" @bind-Value="@ModelEditDto.Description"></InputText>
+                </RowCol>
+                <RowCol Md="3">
+                    <Datepicker @bind-SelectedDate="ModelEditDto.ReferralDate" Label="تاریخ و ساعت مراجعه" />
+                </RowCol>
+            </Row>
+        </Form>
+    </CardBody>
+</Card>

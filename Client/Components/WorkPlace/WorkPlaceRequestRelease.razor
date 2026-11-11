@@ -1,0 +1,54 @@
+﻿@page "/WorkPlace/WorkPlaceAdd"
+@using Despro.Blazor.Display.Components.Statuses
+@inherits BaseComponent
+@attribute [StreamRendering]
+
+<Card StatusTop="BaseColor.Primary">
+    <CardBody>
+        <CardHeader>
+            <h3>درخواست آزادسازی</h3>
+        </CardHeader>
+        <EmployeDetail EmployeId="_requestReleaseDto.EmployeId" EmployeIdChanged="GetRank" />
+        <Row>
+            <RowCol Md="4">
+                <label class="form-label">
+                    نام معاونت فعلی:
+                    <Status BackgroundColor="@BaseColor.Green" DotType=StatusDotType.Animate>
+                        @WorkPlaceGetCurrentRankDto.SectionName
+                    </Status>
+                </label>
+            </RowCol>
+            <RowCol Md="4">
+                <label class="form-label">
+                    نام واحد کارکنان فعلی:
+                    <Status BackgroundColor="@BaseColor.Green" DotType=StatusDotType.Animate>
+                        @WorkPlaceGetCurrentRankDto.PositionName
+                    </Status>
+                </label>
+            </RowCol>
+            <RowCol Md="4">
+                <label class="form-label">
+                    نام واحد سرباز فعلی:
+                    <Status BackgroundColor="@BaseColor.Green" DotType=StatusDotType.Animate>
+                        @WorkPlaceGetCurrentRankDto.RankName
+                    </Status>
+                </label>
+            </RowCol>
+        </Row>
+        <Form Model="@_requestReleaseDto" OnValidSubmit="Submit">
+            <Row>
+                <RowCol Md="4">
+                    @* <FormInputNumber @bind-Value="@_requestReleaseDto.LetterNumber"></FormInputNumber> *@
+                    <label class="form-label">شماره نامه</label>
+                    <InputText class="form-control" @bind-Value="@_requestReleaseDto.LetterNumber"></InputText>
+                    <ValidationControl For="(() => _requestReleaseDto.LetterNumber)"></ValidationControl>
+                </RowCol>
+                <RowCol Md="12">
+                    <label class="form-label">توضیحات</label>
+                    <InputTextArea rows="8" class="form-control" @bind-Value="@_requestReleaseDto.Description"></InputTextArea>
+                    <ValidationControl For="(() => _requestReleaseDto.Description)"></ValidationControl>
+                </RowCol>
+            </Row>
+        </Form>
+    </CardBody>
+</Card>

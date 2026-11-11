@@ -1,0 +1,31 @@
+﻿@inherits BaseComponent
+
+@using Despro.Blazor.Layout.Components.Navbars
+
+<AuthorizeView>
+    <Authorized>
+        <Navbar Background="AppService.Settings.NavbarBackground"
+                IsNavbarToggler="false"
+                Direction="direction"
+                NavLinkMatch="NavLinkMatch.All">
+            <div style="display: flex;flex-direction: row-reverse;margin-right: auto;align-items: center;">
+                <h4 class="mx-4 my-auto">
+                    @UserName
+                </h4>
+
+                <div class="mx-4 my-auto">
+                    <Button OnClick="RoleSelectFn">
+                        <h5 class="mx-4 my-auto">
+                            @RoleName
+                        </h5>
+                    </Button>
+                </div>
+                <Button OnClick="Logout">
+                    <h5 class="mx-4 my-auto">
+                        خارج شدن
+                    </h5>
+                </Button>
+            </div>
+        </Navbar>
+    </Authorized>
+</AuthorizeView>

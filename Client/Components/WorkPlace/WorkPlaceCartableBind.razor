@@ -1,0 +1,30 @@
+﻿@page "/WorkPlace/BindVacationCartabl"
+
+@attribute [StreamRendering]
+@inherits BaseComponent
+
+@using Services.Models.WorkPlaceDtos.WorkPlace
+@using Storebook.Workflow.Components.Workflow
+
+<Table Item="WorkPlaceGetCartableDto" @bind-Items="_gridData" OnBindGrid=@OnBind>
+    <HeaderTemplate>
+        <strong>کارتابل بکارگیری</strong>
+    </HeaderTemplate>
+
+    <ChildContent>
+        <Column Item="WorkPlaceGetCartableDto" Property="e => e.EmployeName" Title="نام و نام خانوادگی" Searchable Sortable />
+        <Column Item="WorkPlaceGetCartableDto" Property="e => e.LetterNumber" Title="شماره نامه" Searchable Sortable />
+        <Column Item="WorkPlaceGetCartableDto" Property="e => e.Description" Title="توضیحات" Searchable Sortable />
+        <Column Item="WorkPlaceGetCartableDto" Property="e => e.StateName" Title="نوع وضعیت" Searchable Sortable />     
+        <Column Item="WorkPlaceGetCartableDto" Title="تائید">
+            <Template>
+                <CartableState FormName="تائید"
+                               InstanceId="@context.WorkPlaceId"
+                               WfStateId="@context.StateId"
+                               OnBindGrid="@OnBind"
+                               SubmitEvent="Submit" />
+            </Template>
+        </Column>
+    </ChildContent>
+</Table>
+

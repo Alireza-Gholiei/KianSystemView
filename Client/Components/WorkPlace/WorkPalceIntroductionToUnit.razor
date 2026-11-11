@@ -1,0 +1,59 @@
+﻿@page "/WorkPlace/IntroductionToUnit/{InstanceId:long}/{WfStateId:long}"
+@attribute [StreamRendering]
+@inherits BaseComponent
+
+@using Storebook.Workflow.Components.Workflow
+
+<Card StatusTop="BaseColor.Primary">
+    <CardBody>
+        <CardHeader>
+            <h3>تعیین دستور نیرو انسانی</h3>
+        </CardHeader>
+        <Form Model="@NextInstanceDtos" IsSubmitBtn="false">
+            <Row>
+                <RowCol Md="12">
+                    <Row>
+                        <RowCol Md="3">
+                            <label class="form-label">نام سرباز</label>
+                            <InputText class="form-control" @bind-Value="@WorkPlaceDto.EmployeName" disabled></InputText>
+                        </RowCol>
+                        <RowCol Md="3">
+                            <label class="form-label">شماره نامه</label>
+                            <InputText class="form-control" @bind-Value="@WorkPlaceDto.LetterNumber" disabled></InputText>
+                        </RowCol>
+                        <RowCol Md="3">
+                            <label class="form-label">محل بکارگیری سابق</label>
+                            <InputText class="form-control" @bind-Value="@WorkPlaceDto.ActiveRankName" disabled></InputText>
+                        </RowCol>
+                        <RowCol Md="3">
+                            <label class="form-label">وضعیت بکارگیری</label>
+                            <InputText class="form-control" @bind-Value="@WorkPlaceDto.StatusName" disabled></InputText>
+                        </RowCol>
+                    </Row>
+                </RowCol>
+                <RowCol Md="12">
+                    <Row>
+                        <RowCol Md="3">
+                            <label class="form-label">واحد</label>
+                            <Select Items="PositionList"
+                                    @bind-SelectedValue="@NextInstanceDtos.PositionId"
+                                    TextExpression="e => e.Name"
+                                    ConvertExpression="x => x.Id"
+                                    NoSelectedText="*انتخاب واحد*">
+                            </Select>
+                            <ValidationControl For="(() => NextInstanceDtos.PositionId)"/>
+                        </RowCol>
+                        <RowCol Md="3">
+                            <label class="form-label">شماره نامه</label>
+                            <InputText class="form-control" @bind-Value="@NextInstanceDtos.LetterNumber"></InputText>
+                            <ValidationControl For="(() => NextInstanceDtos.LetterNumber)"></ValidationControl>
+                        </RowCol>
+                    </Row>
+                </RowCol>
+                <RowCol Md="12">
+                    <CartableStateButtons InstanceId="InstanceId" WfStateId="WfStateId" SubmitEvent="@Submit"/>
+                </RowCol>
+            </Row>
+        </Form>
+    </CardBody>
+</Card>

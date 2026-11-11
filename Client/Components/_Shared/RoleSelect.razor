@@ -1,0 +1,23 @@
+﻿@inherits BaseComponent
+
+
+<Card StatusTop="BaseColor.Primary">
+    <CardBody>
+        <Row>
+            <RowCol Md="4">
+                <Select Items="UserRoles"
+                        TextExpression="e => e.RoleName"
+                        ConvertExpression="x => x.RoleId"
+                        @bind-SelectedValue="@RoleId"
+                        NoSelectedText="*انتخاب نقش*"
+                        Clearable="false">
+                </Select>
+            </RowCol>
+            <RowCol Md="12" Style="text-align: center;">
+                <Button OnClick="@Submit" BackgroundColor="BaseColor.Success">
+                    ثبت
+                </Button>
+            </RowCol>
+        </Row>
+    </CardBody>
+</Card>

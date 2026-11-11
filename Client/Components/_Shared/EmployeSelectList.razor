@@ -1,0 +1,36 @@
+﻿@attribute [StreamRendering]
+@inherits BaseComponent
+
+@using Services.Models.EmployeDtos.Employe
+
+<Table Item="EmployeGetForDetailDto" @bind-Items="_employeDtos" OnBindGrid=@OnBind>
+    <HeaderTemplate>
+        <strong>لیست سربازان</strong>
+    </HeaderTemplate>
+
+    <ChildContent>
+        <Column Item="EmployeGetForDetailDto" Property="e => e.DossierNumber" Title="شماره پرونده" Searchable Sortable/>
+        <Column Item="EmployeGetForDetailDto" Property="e => e.FirstName" Title="نام" Searchable Sortable/>
+        <Column Item="EmployeGetForDetailDto" Property="e => e.LastName" Title="نام خانوادگی" Searchable Sortable/>
+        <Column Item="EmployeGetForDetailDto" Property="e => e.NationalCode" Title="کدملی" Searchable Sortable/>
+        <Column Item="EmployeGetForDetailDto" Property="e => e.DateBirth" Title="تاریخ تولد"
+                SearchExpression='(dto, s) => dto.DateBirth.ToString("yyyy/MM/dd").Contains(s)'
+                Searchable Sortable>
+            <Template>
+                @context.DateBirth.ToString("yyyy/MM/dd")
+            </Template>
+        </Column>
+        <Column Item="EmployeGetForDetailDto" Property='e => e.DayDispatch' Title="تاریخ اعزم"
+                SearchExpression='(dto, s) => dto.DayDispatch.ToString("yyyy/MM/dd").Contains(s)'
+                Searchable Sortable>
+            <Template>
+                @context.DayDispatch.ToString("yyyy/MM/dd")
+            </Template>
+        </Column>
+        <Column Item="EmployeGetForDetailDto" Title="عملیات">
+            <Template>
+                <Icon OnClick="() => Select(context)" IconType="@BaseIcons.Circle_check" TextColor="BaseColor.Green"></Icon>
+            </Template>
+        </Column>
+    </ChildContent>
+</Table>

@@ -1,0 +1,46 @@
+﻿@page "/Clinic/ClinicBind"
+
+@attribute [StreamRendering]
+@inherits BaseComponent
+
+@using Services.Models.ClinicDtos
+
+<Table Item="ClinicGetDto" @bind-Items="_employeDtos" OnBindGrid=@OnBind>
+    <HeaderTemplate>
+        <strong>نمایش مراجعات</strong>
+    </HeaderTemplate>
+
+    <ChildContent>
+        <Column Item="ClinicGetDto" Property="e => e.EmployeDto.NationalCode" Title="کد ملی" Searchable Sortable />
+        <Column Item="ClinicGetDto" Property="e => e.EmployeDto.FirstName" Title="نام " Searchable Sortable />
+        <Column Item="ClinicGetDto" Property="e => e.EmployeDto.LastName" Title="نام خانوادگی" Searchable Sortable />
+        <Column Item="ClinicGetDto" Property="e => e.DoctorName" Title="نام پزشک" Searchable Sortable />
+        <Column Item="ClinicGetDto" Property="e => e.NurseName" Title="نام پرستار" Searchable Sortable />
+        <Column Item="ClinicGetDto" Property="e => e.ConsumableItems" Title="اقلام وداروی مصرفی" Searchable Sortable />
+        <Column Item="ClinicGetDto" Property="e => e.ReasonReferral" Title="علت مراجعه" Searchable Sortable />
+        <Column Item="ClinicGetDto" Property="e => e.ReferralDate" Title="تاریخ و ساعت مراجعه" Searchable Sortable>
+            <Template>
+                @(new DateTime(context.ReferralDate).ToString("yyyy/MM/dd HH:mm:ss"))
+            </Template>
+        </Column>
+        <Column Item="ClinicGetDto" Property="e => e.Description" Title="توضیحات" Searchable Sortable />
+        <Column Item="ClinicGetDto" Title="عملیات">
+            <Template>
+                <ButtonList>
+                    <Dropdown>
+                        <ChildContent>
+                            <Button BackgroundColor="BaseColor.Orange" Type="ButtonType.Button" Text="عملیات" IsDropdown>
+                            </Button>
+                        </ChildContent>
+
+                        <DropdownTemplate>
+                            <DropdownMenu>
+                                <DropdownItem OnClick="() => EditClinic(context.Id)">ویرایش</DropdownItem>
+                            </DropdownMenu>
+                        </DropdownTemplate>
+                    </Dropdown>
+                </ButtonList>
+            </Template>
+        </Column>
+    </ChildContent>
+</Table>

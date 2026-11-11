@@ -1,0 +1,42 @@
+﻿@page "/Role/Bind"
+@inherits BaseComponent
+
+ 
+@using Despro.Blazor.Base.Components
+@using Services.Models._AuthDtos.RoleDtos
+
+<Table Item="RoleGetGridDto" @bind-Items="GridData" OnBindGrid=@OnBind>
+    <HeaderTemplate>
+        <strong>لیست نقش ها</strong>
+    </HeaderTemplate>
+
+    <ChildContent>
+        <Column Item="RoleGetGridDto" Property="e => e.Name" Title="نام" Searchable Sortable />
+        <Column Item="RoleGetGridDto" Property="e => e.AccessAll" Title="سطح دسترسی">
+            <Template>
+                @(context.AccessAll ? "دسترسی کامل" : "دسترسی محدود")
+            </Template>
+        </Column>
+        <Column Item="RoleGetGridDto" Property="e => e.RoleParentName" Title="نقش بالادست" />
+        <Column Item="RoleGetGridDto" Property="e => e.UserRolesCount" Title="تعداد کاربران" />
+        <Column Item="RoleGetGridDto" Property="e => e.RoleChildrenCount" Title="تعداد نقش زیر مجموعه" />
+        <Column Item="RoleGetGridDto" Title="عملیات">
+            <Template>
+                <ButtonList>
+                    <Dropdown>
+                        <ChildContent>
+                            <Button BackgroundColor="BaseColor.Orange" Type="ButtonType.Button" Text="عملیات" IsDropdown>
+                            </Button>
+                        </ChildContent>
+
+                        <DropdownTemplate>
+                            <DropdownMenu>
+                                <DropdownItem OnClick="() => Edit(context.Id)">ویرایش</DropdownItem>
+                            </DropdownMenu>
+                        </DropdownTemplate>
+                    </Dropdown>
+                </ButtonList>
+            </Template>
+        </Column>
+    </ChildContent>
+</Table>

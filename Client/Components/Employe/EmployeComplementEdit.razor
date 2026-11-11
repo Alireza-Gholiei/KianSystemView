@@ -1,0 +1,99 @@
+﻿@attribute [StreamRendering]
+@using Services.Models.StartDtos
+@inherits BaseComponent
+
+<Card StatusTop="BaseColor.Primary">
+    <CardBody>
+        <Row>
+            <RowCol Md="4">
+                <label class="form-label">کدملی</label>
+                <InputText class="form-control" @bind-Value="@EmployeModel.NationalCode" disabled></InputText>
+            </RowCol>
+            <RowCol Md="4">
+                <label class="form-label">نام</label>
+                <InputText class="form-control" @bind-Value="@EmployeModel.FirstName" disabled></InputText>
+            </RowCol>
+            <RowCol Md="4">
+                <label class="form-label">نام خانوادگی</label>
+                <InputText class="form-control" @bind-Value="@EmployeModel.LastName" disabled></InputText>
+            </RowCol>
+        </Row>
+        <Form Model="@EmployeComplementModel" OnValidSubmit="Submit">
+            <Row>
+                <RowCol Md="3">
+                    <label class="form-label">کد پرسنلی</label>
+                    <InputText class="form-control" @bind-Value="@EmployeComplementModel.PersonnelCode"></InputText>
+                    <ValidationControl For="(() => EmployeComplementModel.PersonnelCode)"></ValidationControl>
+                </RowCol>
+                <RowCol Md="3">
+                    <label class="form-label">درجه</label>
+                    <Select Items="DegreeTypeDtos"
+                            TextExpression="e => e.Name"
+                            ConvertExpression="x => x.Id"
+                            @bind-SelectedValue="EmployeComplementModel.DegreeId"
+                            NoSelectedText="*انتخاب درجه*">
+                    </Select>
+                    <ValidationMessage For="(() => EmployeComplementModel.DegreeId)"></ValidationMessage>
+                </RowCol>
+                <RowCol Md="3">
+                    <label class="form-label">وضعبت سلامت</label>
+                    <Select Items="HealthStatusTypeDtos"
+                            TextExpression="e => e.Name"
+                            ConvertExpression="x => x.Id"
+                            @bind-SelectedValue="EmployeComplementModel.HealthStatusId"
+                            NoSelectedText="*انتخاب وضعبت سلامت*">
+                    </Select>
+                    <ValidationMessage For="(() => EmployeComplementModel.HealthStatusId)"></ValidationMessage>
+                </RowCol>
+                <RowCol Md="3">
+                    <label class="form-label">اضافه خدمت سنواتی</label>
+                    <InputNumber class="form-control" @bind-Value="@EmployeComplementModel.BackPunish"></InputNumber>
+                    <ValidationControl For="(() => EmployeComplementModel.BackPunish)"></ValidationControl>
+                </RowCol>
+                <RowCol Md="3">
+                    <label class="form-label">نوع سکونت</label>
+                    <Select Items="ResidenceTypeDtos"
+                            TextExpression="e => e.TrafficTypeName"
+                            ConvertExpression="x => x.Id"
+                            @bind-SelectedValue="EmployeComplementModel.ResidenceTypeId"
+                            NoSelectedText="*انتخاب نوع سکونت*">
+                    </Select>
+                    <ValidationMessage For="(() => EmployeComplementModel.ResidenceTypeId)"></ValidationMessage>
+                </RowCol>
+                <RowCol Md="3">
+                    <label class="form-label">نوع حضور</label>
+                    <Select Items="TrafficStatusDtos"
+                            TextExpression="e => e.Name"
+                            ConvertExpression="x => x.Id"
+                            @bind-SelectedValue="EmployeComplementModel.TrafficStatusId"
+                            NoSelectedText="*انتخاب نوع حضور*">
+                    </Select>
+                    <ValidationMessage For="(() => EmployeComplementModel.TrafficStatusId)"></ValidationMessage>
+                </RowCol>
+                <RowCol Md="3">
+                    <Select TItem="MaritalStatusDto"
+                            TValue="bool"
+                            Items="MaritalStatusDtos"
+                            Label="وضعیت تاهل"
+                            TextExpression="e => e.MaritalStatusName"
+                            ConvertExpression="x => x.MaritalStatusType"
+                            Updated="() => EmployeComplementModel.ChildCount = 0"
+                            @bind-SelectedValue="EmployeComplementModel.MaritalStatus"
+                            NoSelectedText="*انتخاب وضعیت تاهل*">
+                    </Select>
+                    <ValidationMessage For="(() => EmployeComplementModel.MaritalStatus)"></ValidationMessage>
+                </RowCol>
+                <RowCol Md="3">
+                    <label class="form-label">تعداد فرزندان</label>
+                    <InputNumber class="form-control" @bind-Value="@EmployeComplementModel.ChildCount" disabled="@(!EmployeComplementModel.MaritalStatus)"></InputNumber>
+                    <ValidationControl For="(() => EmployeComplementModel.ChildCount)"></ValidationControl>
+                </RowCol>
+                <Row>
+                    <RowCol Md="6" IsCenter="true">
+                        <Button @onclick="EmergencyModal" BackgroundColor="BaseColor.Green" Text="افزودن شماره تماس های اضطراری"></Button>
+                    </RowCol>
+                </Row>
+            </Row>
+        </Form>
+    </CardBody>
+</Card>

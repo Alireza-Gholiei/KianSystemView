@@ -1,0 +1,35 @@
+﻿@page "/UserRole/Bind"
+
+@inherits BaseComponent
+
+@using Services.Models._AuthDtos.UserRoleDtos
+
+
+<Table Item="UserRoleGetGridDto" @bind-Items="_gridData" OnBindGrid=@OnBind>
+    <HeaderTemplate>
+        <strong>لیست دسترسی ها</strong>
+    </HeaderTemplate>
+
+    <ChildContent>
+        <Column Item="UserRoleGetGridDto" Property="e => e.UserFullName" Title="نام کاربر" Searchable Sortable SearchExpression="User.FullName" />
+        <Column Item="UserRoleGetGridDto" Property="e => e.RoleName" Title="نام نقش" Searchable Sortable SearchExpression="Role.Name" />
+        <Column Item="UserRoleGetGridDto" Title="عملیات">
+            <Template>
+                <ButtonList>
+                    <Dropdown>
+                        <ChildContent>
+                            <Button BackgroundColor="BaseColor.Orange" Type="ButtonType.Button" Text="عملیات" IsDropdown>
+                            </Button>
+                        </ChildContent>
+
+                        <DropdownTemplate>
+                            <DropdownMenu>
+                                <DropdownItem OnClick="() => Delete(context)">حذف</DropdownItem>
+                            </DropdownMenu>
+                        </DropdownTemplate>
+                    </Dropdown>
+                </ButtonList>
+            </Template>
+        </Column>
+    </ChildContent>
+</Table>

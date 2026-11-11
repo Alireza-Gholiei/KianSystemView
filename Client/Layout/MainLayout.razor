@@ -1,0 +1,28 @@
+﻿@using Despro.Blazor.Message.Components.Toast
+@using Despro.Blazor.Modal.Components.Modal
+@using Despro.Blazor.Modal.Components.Offcanvas
+
+@inherits LayoutComponentBase
+
+<HeadContent>
+    <PageTitle>سامانه کیان</PageTitle>
+</HeadContent>
+<AuthorizeView>
+    <Authorized>
+        <ModalContainer />
+        <ToastContainer />
+        <OffcanvasContainer />
+        <div class="page">
+            <MainNavigation />
+            <MainNavbar />
+            <div class="page-wrapper">
+                <div class="container-fluid mt-3">
+                    @Body
+                </div>
+            </div>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <RedirectToLogin />
+    </NotAuthorized>
+</AuthorizeView>

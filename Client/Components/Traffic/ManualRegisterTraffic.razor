@@ -1,0 +1,27 @@
+﻿@page "/Traffic/ManualRegisterTraffic"
+@inherits BaseComponent
+
+@attribute [StreamRendering]
+
+<Card StatusTop="BaseColor.Primary">
+    <CardHeader>
+        <h3>ثبت دستی تردد</h3>
+    </CardHeader>
+    <CardBody>
+        <Form Model="registerTrafficIntertDto" OnValidSubmit="Submit" SubmitText="ثبت تردد">
+            <Row>
+                <RowCol Md="12">
+                    <EmployeDetail @bind-EmployeId="registerTrafficIntertDto.EmployeId" />
+                </RowCol>
+                <RowCol Md="3"></RowCol>
+                <RowCol Md="3">
+                    <Datepicker DatePicker="true" TimePicker="false" @bind-SelectedDate="registerTrafficIntertDto.TrafficDate" Label="تاریخ تردد" />
+                </RowCol>
+                <RowCol Md="3">
+                    <Datepicker DatePicker="false" TimePicker="true" @bind-SelectedDate="TrafficTime" Label="ساعت تردد"></Datepicker>
+                </RowCol>
+                <RowCol Md="3"></RowCol>
+            </Row>
+        </Form>
+    </CardBody>
+</Card>

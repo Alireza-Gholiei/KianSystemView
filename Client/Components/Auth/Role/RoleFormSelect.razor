@@ -1,0 +1,35 @@
+﻿@using Despro.Blazor.Base.Components
+@inherits BaseComponent
+
+
+<Card StatusTop="BaseColor.Primary">
+    <CardHeader>
+        <strong>فرم ها</strong>
+    </CardHeader>
+    <CardBody>
+        <Row>
+            <RowCol Md="12">
+                <RoleFormSelector @bind-SelectedId="SelectedIds" />
+            </RowCol>
+        </Row>
+    </CardBody>
+    <CardFooter>
+        <div style="text-align: center;">
+            <Button BackgroundColor="BaseColor.Green"
+                    OnClick="Submit"
+                    Type="ButtonType.Button">
+                ثبت
+            </Button>
+            <Button BackgroundColor="BaseColor.Red"
+                    OnClick="ClearAccess"
+                    Type="ButtonType.Button">
+                پاک کردن همه
+            </Button>
+            <Button BackgroundColor="BaseColor.Red"
+                    OnClick="Close"
+                    Type="ButtonType.Button">
+                خروج
+            </Button>
+        </div>
+    </CardFooter>
+</Card>

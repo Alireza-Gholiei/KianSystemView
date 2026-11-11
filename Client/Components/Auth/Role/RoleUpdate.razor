@@ -1,0 +1,37 @@
+﻿
+@inherits BaseComponent
+
+<Form Model="@RoleDto" OnValidSubmit="Submit">
+    <Row>
+        <RowCol Md="3">
+            <InputValue @bind-Value="@RoleDto.Name"
+                        For="() => RoleDto.Name"
+                        Label="نام"
+                        Placeholder="ادمین" />
+        </RowCol>
+        <RowCol Md="3">
+            <br />
+            <br />
+            <Checkbox @bind-Value="@RoleDto.AccessAll" Label="دسترسی کامل"></Checkbox>
+        </RowCol>
+        <RowCol Md="3" IsCenter>
+            <br />
+            <Button BackgroundColor="BaseColor.Blue" OnClick="(() => SelectParent())" Type="ButtonType.Button">
+                انتخاب نقش بالا دست
+            </Button>
+            @if (ParentRole != null)
+            {
+                <div>
+                    <br />
+                    <p>نقش انتخاب شده: <span class="font-black text-gray-700">@ParentRole.Name</span></p>
+                </div>
+            }
+        </RowCol>
+        <RowCol Md="3" IsCenter>
+            <br />
+            <Button BackgroundColor="BaseColor.Blue" OnClick="(() => SelectForm())" Type="ButtonType.Button" Disabled="@RoleDto.AccessAll">
+                انتخاب فرم قابل دسترس
+            </Button>
+        </RowCol>
+    </Row>
+</Form>

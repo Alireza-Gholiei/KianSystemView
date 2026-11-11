@@ -1,0 +1,42 @@
+﻿@inherits Despro.Blazor.Base.Components.BaseComponent
+
+@inject AuthStateProvider AuthProvider
+@inject NavigationManager Navigation
+
+<AuthorizeRouteView RouteData="@RouteData" DefaultLayout="@DefaultLayout">
+    <Authorizing>
+        @Authorizing
+    </Authorizing>
+    <NotAuthorized>
+        @NotAuthorized
+    </NotAuthorized>
+</AuthorizeRouteView>
+
+@code {
+    [Parameter] public RouteData RouteData { get; set; } = null!;
+    [Parameter] public RenderFragment? Authorizing { get; set; }
+    [Parameter] public RenderFragment? NotAuthorized { get; set; }
+    [Parameter] public Type? DefaultLayout { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var pageType = RouteData.PageType;
+        
+        if (pageType.IsDefined(typeof(AllowAnonymousAttribute), true))
+            return;
+
+        if (!pageType.IsDefined(typeof(AuthRequired), true))
+            return;
+
+        var url = Navigation.ToBaseRelativePath(Navigation.Uri);
+        if (string.IsNullOrWhiteSpace(url))
+            return;
+
+        await AuthProvider.GetAuthenticationStateAsync();
+
+        if (!AuthProvider.HasAccess(url))
+        {
+            Navigation.NavigateTo("/AccessDenied", true);
+        }
+    }
+}

@@ -1,0 +1,17 @@
+﻿@page "/NotFound"
+@attribute [AllowAnonymous]
+
+@layout EmptyLayout
+
+<PageTitle>صفحه یافت نشد</PageTitle>
+
+<div class="flex min-h-screen items-center justify-center bg-gradient-to-r from-blue-100 to-blue-200">
+    <div class="max-w-md rounded-3xl bg-white p-10 text-center shadow-xl">
+        <h1 class="mb-4 text-6xl font-extrabold text-blue-600">❓</h1>
+        <h2 class="mb-2 text-3xl font-bold">صفحه پیدا نشد!</h2>
+        <p class="mb-6 text-gray-600">به نظر می‌رسد صفحه‌ای که دنبال آن بودید وجود ندارد.</p>
+        <a href="/" class="inline-block rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition-all duration-300 hover:bg-blue-700">
+            برگشت به صفحه اصلی
+        </a>
+    </div>
+</div>

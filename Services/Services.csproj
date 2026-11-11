@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Despro.Blazor.Base" Version="1.10.2" />
+		<PackageReference Include="Storebook.Service" Version="3.4.5" />
+		<PackageReference Include="Storebook.Workflow.Service" Version="3.2.3" />
+	</ItemGroup>
+
+</Project>

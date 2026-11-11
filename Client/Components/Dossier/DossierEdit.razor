@@ -1,0 +1,32 @@
+﻿@page "/Dossier/DossierEdit"
+
+@attribute [StreamRendering]
+@inherits BaseComponent
+
+<Card StatusTop="BaseColor.Primary">
+    <CardBody>
+        <CardHeader>
+            <h3>ویرایش پرونده</h3>
+        </CardHeader>
+        <EmployeDetail EmployeId="DossierDto.EmployeId" EmployeIdChanged="EmployeSelect" />
+        <Form Model="@DossierDto" OnValidSubmit="Submit">
+            <Row>
+                <RowCol Md="6">
+                    <label class="form-label">نوع سند</label>
+                    <Select Items="DossierListDtos"
+                            @bind-SelectedValue="DossierDto.Id"
+                            TextExpression="e => e.DossierListName"
+                            ConvertExpression="x => x.DossierId"
+                            NoSelectedText="*انتخاب نوع سند*">
+                    </Select>
+                    <ValidationMessage For="(() => DossierDto.Id)"></ValidationMessage>
+                </RowCol>
+                <RowCol Md="12">
+                    <DragDrop Label="تصویر سند" @bind-SelectedFile="DossierDto.Dossier">
+                    </DragDrop>
+                    <ValidationMessage For="(() => DossierDto.Dossier)"></ValidationMessage>
+                </RowCol>
+            </Row>
+        </Form>
+    </CardBody>
+</Card>

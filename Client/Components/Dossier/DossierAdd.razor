@@ -1,0 +1,32 @@
+﻿@page "/Dossier/DossierAdd"
+
+@attribute [StreamRendering]
+@inherits BaseComponent
+
+<Card StatusTop="BaseColor.Primary">
+    <CardBody>
+        <CardHeader>
+            <h3>افزودن پرونده </h3>
+        </CardHeader>
+        <EmployeDetail EmployeId="DossierDto.EmployeId" EmployeIdChanged="EmployeSelect" />
+        <Form Model="@DossierDto" OnValidSubmit="Submit">
+            <Row>
+                <RowCol Md="6">
+                    <label class="form-label">نوع سند</label>
+                    <Select Items="DossierListDtos"
+                            @bind-SelectedValue="DossierDto.DossierListId"
+                            TextExpression="e => e.DossierListName"
+                            ConvertExpression="x => x.Id"
+                            NoSelectedText="*انتخاب نوع سند*">
+                    </Select>
+                    <ValidationMessage For="(() => DossierDto.DossierListId)"></ValidationMessage>
+                </RowCol>
+                <RowCol Md="12">
+                    <DragDrop Label="تصویر سند" @bind-SelectedFile="DossierDto.Dossier">
+                    </DragDrop>
+                    <ValidationMessage For="(() => DossierDto.Dossier)"></ValidationMessage>
+                </RowCol>
+            </Row>
+        </Form>
+    </CardBody>
+</Card>

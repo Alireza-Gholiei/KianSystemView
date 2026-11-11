@@ -1,0 +1,24 @@
+﻿@using Despro.Blazor.Message.Components.Toast
+@using Despro.Blazor.Modal.Components.Modal
+@using Despro.Blazor.Modal.Components.Offcanvas
+
+@inherits LayoutComponentBase
+
+<HeadContent>
+    <PageTitle>سامانه کیان - احراز هویت</PageTitle>
+    <link rel="stylesheet" href="@Assets["./css/login-page.css"]" />
+</HeadContent>
+
+<AuthorizeView>
+    <Authorized>
+        <RedirectToHome />
+    </Authorized>
+    <NotAuthorized>
+        <ModalContainer />
+        <ToastContainer />
+        <OffcanvasContainer />
+        <div class="min-h-screen items-center justify-center">
+            @Body
+        </div>
+    </NotAuthorized>
+</AuthorizeView>

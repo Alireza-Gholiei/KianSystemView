@@ -1,0 +1,46 @@
+﻿@inherits BaseComponent
+
+@using Despro.Blazor.Layout.Components.Navbars
+
+<AuthorizeView>
+    <Authorized>
+        <Navbar Background="AppService.Settings.NavbarBackground"
+                Direction="AppService.Settings.NavbarDirection"
+                NavLinkMatch="NavLinkMatch.All">
+
+            <a href="/" class="navbar-brand">
+                <img src="./Image-Icon/LOGO.png" class="navbar-brand-image me-2" alt="" style="height:2rem">
+
+                <h2 class="text-secondary m-0">
+                    سامانه کیان
+                </h2>
+            </a>
+
+            <NavbarMenu>
+                @if (Menus == null || !Menus.Any())
+                {
+                    <p>در حال بارگذاری...</p>
+                }
+                else
+                {
+                    @foreach (var item in Menus)
+                    {
+                        <FormMenuItem Item="item" />
+                    }
+                }
+            </NavbarMenu>
+        </Navbar>
+    </Authorized>
+    <NotAuthorized>
+        <Navbar Background="AppService.Settings.NavbarBackground"
+                Direction="AppService.Settings.NavbarDirection"
+                NavLinkMatch="NavLinkMatch.All">
+            <a href="/" class="navbar-brand">
+                <img src="Image-Icon/LOGO.png" class="navbar-brand-image me-2" alt="">
+                <h2 class="text-secondary m-0">
+                    سامانه کیان
+                </h2>
+            </a>
+        </Navbar>
+    </NotAuthorized>
+</AuthorizeView>

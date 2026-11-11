@@ -1,0 +1,42 @@
+﻿@page "/Dossier/DossierBind"
+
+@attribute [StreamRendering]
+@inherits BaseComponent
+
+@using Despro.Blazor.Display.Components.ContentViewer
+@using Despro.Blazor.Display.Components.TreeViews
+@using Despro.Blazor.Layout.Components.Dimmers
+@using Services.Models.DossierDtos
+
+<Card>
+    <CardHeader>
+        <strong>نمایش اسناد پرونده</strong>
+    </CardHeader>
+    <CardBody>
+        <Row>
+            <RowCol Md="12">
+                <EmployeDetail EmployeId="EmployeId" EmployeIdChanged="EmployeSelect"></EmployeDetail>
+            </RowCol>
+            <RowCol Md="3">
+                <TreeView TItem="DossierGetTreeDto" @ref="treeView" Items="@folders"
+                          ChildSelector="e=>e.SubDossier"
+                          DefaultExpanded="e => e.Id == selectedFolder.Id"
+                          SelectedItem="selectedFolder"
+                          SelectedItemChanged="SelectDossier">
+                    <Template>
+                        <Card StatusStart="BaseColor.Green" Size="CardSize.Small">
+                            <CardBody>
+                                <span>@context.Name (@context.SubDossier.Count)</span>
+                            </CardBody>
+                        </Card>
+                    </Template>
+                </TreeView>
+            </RowCol>
+            <RowCol Md="9">
+                <Dimmer Active="@IsFileLoad" Text="در حال بارگزاری فایل">
+                    <ImageViewer Content="@file" ContentType="@contentType" />
+                </Dimmer>
+            </RowCol>
+        </Row>
+    </CardBody>
+</Card>

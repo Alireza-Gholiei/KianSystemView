@@ -1,0 +1,36 @@
+﻿@using Despro.Blazor.Base.DesproBlazorExceptions
+@using Despro.Blazor.Message.MessageRepository.Interface
+@inject ILogger<CustomErrorBoundary> Logger
+@inherits ErrorBoundary
+
+@ChildContent
+
+@code {
+    [Inject] public IToastService ToastService { get; set; }
+
+    protected override Task OnErrorAsync(Exception e)
+    {
+        try
+        {
+            switch (e)
+            {
+                case BaseFrameworkException ex:
+                    ToastService.ErrorAlertToast(ex.Message);
+                    break;
+                case TimeoutException:
+                    ToastService.ErrorAlertToast("ارتباط با سرور برقرار نشد. لطفا دوباره تلاش کنید.");
+                    break;
+                default:
+                    Logger.LogError(e, "خطایی در کامپوننت رخ داد: {Message}", e.Message);
+                    ToastService.ErrorAlertToast("یک خطای پیش‌بینی‌نشده رخ داد.");
+                    break;
+            }
+
+            return Task.CompletedTask;
+        }
+        catch (Exception)
+        {
+            return Task.CompletedTask;
+        }
+    }
+}

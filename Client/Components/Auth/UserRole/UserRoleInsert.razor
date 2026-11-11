@@ -1,0 +1,54 @@
+﻿@page "/UserRole/Insert"
+
+@inherits BaseComponent
+
+
+<Card StatusTop="BaseColor.Primary">
+    <CardBody>
+        <CardHeader>
+            <h3>افزودن نقش به کاربر</h3>
+        </CardHeader>
+        <Form Model="@UserRoleDto" OnValidSubmit="Submit">
+            <Row>
+                <RowCol Md="12">
+                    <Row>
+                        <RowCol Md="6">
+                            <InputValue T="@string"
+                                        MaxLength="11"
+                                        Value="@UserRoleDto.PhoneNumber"
+                                        ValueChanged="MobileChange"
+                                        For="() => UserRoleDto.PhoneNumber"
+                                        Label="شماره تماس"
+                                        Placeholder="09120000000" />
+                        </RowCol>
+                    </Row>
+                </RowCol>
+                <RowCol Md="4">
+                    <InputValue @bind-Value="@UserRoleDto.FirstName"
+                                For="() => UserRoleDto.FirstName"
+                                Label="نام"
+                                Placeholder="محمد" />
+                </RowCol>
+                <RowCol Md="4">
+                    <InputValue @bind-Value="@UserRoleDto.LastName"
+                                For="() => UserRoleDto.LastName"
+                                Label="نام خانوادگی"
+                                Placeholder="محمدی" />
+                </RowCol>
+                <RowCol Md="4" IsCenter>
+                    <br />
+                    <Button BackgroundColor="BaseColor.Blue" OnClick="(() => SelectParent())" Type="ButtonType.Button">
+                        انتخاب نقش
+                    </Button>
+                    @if (ParentRole != null)
+                    {
+                        <div>
+                            <br />
+                            <p>نقش انتخاب شده: <span class="font-black text-gray-700">@ParentRole.Name</span></p>
+                        </div>
+                    }
+                </RowCol>
+            </Row>
+        </Form>
+    </CardBody>
+</Card>

@@ -1,0 +1,51 @@
+﻿@page "/Vacation/VacationBind"
+@using Services.Models.VacationDtos.Vacation
+@inherits BaseComponent
+
+@attribute [StreamRendering]
+
+<Card>
+    <CardHeader>
+        <strong>لیست مرخصی سرباز</strong>
+    </CardHeader>
+    <CardBody>
+        <Row>
+            <RowCol Md="12">
+                <EmployeDetail EmployeId="EmployeId" EmployeIdChanged="EmployeSelect"></EmployeDetail>
+            </RowCol>
+            <RowCol Md="12">
+                <Table Item="VacationGetDto" @bind-Items="_vacationGetDto" OnBindGrid=@OnBind>
+                    <ChildContent>
+                        <Column Item="VacationGetDto" Property="e => e.VacationNumber" Title="شماره مرخصی" Searchable Sortable />
+                        <Column Item="VacationGetDto" Property="e => e.VacationType" Title="نوع مرخصی" Searchable Sortable />
+                        <Column Item="VacationGetDto" Property="e => e.VacationAmount" Title="مدت" Searchable Sortable />
+                        <Column Item="VacationGetDto" Property="e => e.StateName" Title="وضعیت" Searchable Sortable />
+                        <Column Item="VacationGetDto" Property="e => e.StartDateVacation" Title="تاریخ شروع" Searchable Sortable>
+                            <Template>
+                                @(new DateTime(context.StartDateVacation).ToString("yyyy/MM/dd"))
+                            </Template>
+                        </Column>
+                        <Column Item="VacationGetDto" Property='e => e.EndDateVacation' Title="تاریخ پایان" Searchable Sortable>
+                            <Template>
+                                @(new DateTime(context.EndDateVacation).ToString("yyyy/MM/dd"))
+                            </Template>
+                        </Column>
+                        <Column Item="VacationGetDto" Property="e => e.StartDateTraffic" Title="تاریخ خروج" Searchable Sortable>
+                            <Template>
+                                @(context.StartDateTraffic != null ? new DateTime(context.StartDateTraffic.Value).ToString("yyyy/MM/dd") : "")
+                            </Template>
+                        </Column>
+                        <Column Item="VacationGetDto" Property='e => e.EndDateTraffic' Title="تاریخ ورود" Searchable Sortable>
+                            <Template>
+                                @(context.EndDateTraffic != null ? new DateTime(context.EndDateTraffic.Value).ToString("yyyy/MM/dd") : "")
+                            </Template>
+                        </Column>
+                        <Column Item="VacationGetDto" Property="e => e.DeputyName" Title="نام جانشین" Searchable Sortable />
+                        <Column Item="VacationGetDto" Property="e => e.Cause" Title="علت مرخصی" Searchable Sortable />
+                        <Column Item="VacationGetDto" Property="e => e.Description" Title="توضیحات" Searchable Sortable />
+                    </ChildContent>
+                </Table>
+            </RowCol>
+        </Row>
+    </CardBody>
+</Card>

@@ -1,0 +1,17 @@
+﻿@page "/AccessDenied"
+@attribute [AllowAnonymous]
+
+@layout EmptyLayout
+
+<PageTitle>عدم دسترسی</PageTitle>
+
+<div class="flex min-h-screen items-center justify-center bg-gradient-to-r from-red-100 to-red-200">
+    <div class="max-w-md rounded-3xl bg-white p-10 text-center shadow-xl">
+        <h1 class="mb-4 text-6xl font-extrabold text-red-600">🚫</h1>
+        <h2 class="mb-2 text-3xl font-bold">دسترسی غیرمجاز!</h2>
+        <p class="mb-6 text-gray-600">متأسفیم، شما مجوز دسترسی را ندارید.</p>
+        <a href="/" class="inline-block rounded-lg bg-red-600 px-6 py-3 font-semibold text-white transition-all duration-300 hover:bg-red-700">
+            برگشت به صفحه اصلی
+        </a>
+    </div>
+</div>

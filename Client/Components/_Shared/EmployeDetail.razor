@@ -1,0 +1,31 @@
+﻿@using Despro.Blazor.Layout.Components.Dimmers
+@inherits BaseComponent
+
+<Dimmer Active="IsLodding" Text="لطفا منتظر بمانید...">
+    <h3>انتخاب سرباز</h3>
+    <Row>
+        <RowCol Md="3">
+            <label class="form-label">کدملی</label>
+            <InputText class="form-control" id="NationalCode"
+                       Value="@EmployeModel.NationalCode"
+                       ValueChanged="NationalCodeChange"
+                       ValueExpression="() => EmployeModel.NationalCode"
+                       @oninput="OnInput">
+            </InputText>
+        </RowCol>
+        <RowCol Md="3">
+            <label class="form-label">نام</label>
+            <InputText class="form-control" @bind-Value="@EmployeModel.FirstName" disabled></InputText>
+        </RowCol>
+        <RowCol Md="3">
+            <label class="form-label">نام خانوادگی</label>
+            <InputText class="form-control" @bind-Value="@EmployeModel.LastName" disabled></InputText>
+        </RowCol>
+        <RowCol Md="3" Style="text-align: center; align-content: center">
+            <br />
+            <Button Text="انتخاب سرباز" OnClick="SelectEmploye"
+                    BackgroundColor="BaseColor.Green"></Button>
+        </RowCol>
+    </Row>
+</Dimmer>
+<hr />

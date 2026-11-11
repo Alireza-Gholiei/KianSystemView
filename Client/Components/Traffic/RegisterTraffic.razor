@@ -1,0 +1,20 @@
+﻿@page "/Traffic/RegisterTraffic"
+@inherits BaseComponent
+
+@attribute [StreamRendering]
+
+<Card StatusTop="BaseColor.Primary">
+    <CardHeader>
+        <h3>ثبت تردد</h3>
+    </CardHeader>
+    <CardBody>
+        <Form Model="registerTrafficIntertDto" OnValidSubmit="Submit" SubmitText="ثبت تردد">
+            <Row>
+                <RowCol Md="12">
+                    <EmployeDetail @bind-EmployeId="registerTrafficIntertDto.EmployeId" />
+                </RowCol>                
+            </Row>
+        </Form>
+    </CardBody>
+</Card>
+

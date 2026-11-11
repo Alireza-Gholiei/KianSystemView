@@ -1,0 +1,15 @@
+﻿@code {
+    [Inject] public NavigationManager NavigationManager { get; set; } = null!;
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return Task.CompletedTask;
+
+        var url = NavigationManager.Uri.Replace(NavigationManager.BaseUri, "");
+
+        NavigationManager.NavigateTo(string.IsNullOrEmpty(url) ? "/Login" : $"/Login?return-url={url}", forceLoad: true);
+
+        return Task.CompletedTask;
+    }
+}

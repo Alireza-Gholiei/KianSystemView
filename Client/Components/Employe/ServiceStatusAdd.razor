@@ -1,0 +1,76 @@
+﻿@using Despro.Blazor.Message.Components.Alerts
+@using Services.Models.EmployeDtos
+@attribute [StreamRendering]
+@inherits BaseComponent
+
+<Card StatusTop="BaseColor.Primary">
+    <CardBody>
+        <Form Model="@ServiceStatusDto" OnValidSubmit="Submit">
+            <Row>
+                <RowCol Md="4">
+                    <label class="form-label">کدملی</label>
+                    <InputText class="form-control" @bind-Value="@EmployeModel.NationalCode" disabled></InputText>
+                </RowCol>
+                <RowCol Md="4">
+                    <label class="form-label">نام</label>
+                    <InputText class="form-control" @bind-Value="@EmployeModel.FirstName" disabled></InputText>
+                </RowCol>
+                <RowCol Md="4">
+                    <label class="form-label">نام خانوادگی</label>
+                    <InputText class="form-control" @bind-Value="@EmployeModel.LastName" disabled></InputText>
+                </RowCol>
+            </Row>
+            <Row>
+                <RowCol Md="3">
+                    <label class="form-label">وضعیت خدمتی</label>
+                    <Select TItem="ServiceStatusTypeDto"
+                            TValue="long"
+                            Items="StatusTypeDtos"
+                            Updated="StatusChange"
+                            TextExpression="e => e.Name"
+                            ConvertExpression="x => x.Id"
+                            @bind-SelectedValue="ServiceStatusDto.ServiceStatusTypeId"
+                            NoSelectedText="*انتخاب وضعیت تاهل*"
+                            Clearable="false">
+                    </Select>
+                    <ValidationMessage For="(() => ServiceStatusDto.ServiceStatusTypeId)"></ValidationMessage>
+                </RowCol>
+            </Row>
+            @if (ServiceStatusDto.ServiceStatusTypeId != 0 && ServiceStatusDto.ServiceStatusTypeId != 1)
+            {
+                <Row>
+                    <RowCol Md="4">
+                        <Checkbox Label="فعال/غیر فعال" @bind-Value="IsDateAbsence" />
+                        @if (IsDateAbsence)
+                        {
+                            <Datepicker @bind-SelectedDate="ServiceStatusDto.DateAbsence" Label="تاریخ غیبت/رفت" disabled="IsDateAbsence" Updated="DateAbsenceChange"/>
+                        }
+                    </RowCol>
+                    <RowCol Md="4">
+                        <Checkbox Label="فعال/غیر فعال" @bind-Value="IsDateRun" />
+                        @if (IsDateRun)
+                        {
+                            <Datepicker @bind-SelectedDate="ServiceStatusDto.DateRun" Label="تاریخ فرار" disabled="IsDateRun" />
+                        }
+                    </RowCol>
+                    <RowCol Md="4">
+                        <Checkbox Label="فعال/غیر فعال" @bind-Value="IsDateBack" />
+                        @if (IsDateBack)
+                        {
+                            <Datepicker @bind-SelectedDate="ServiceStatusDto.DateBack" Label="تاریخ برگشت" disabled="IsDateBack" />
+                        }
+                    </RowCol>
+                </Row>
+                <Row>
+                    <Alert BackgroundColor="BaseColor.Warning" Title="توجه">
+                        <div class="text-secondary">در صورتی که هر یک از موارد بدون اطلاعات است مورد را فعال نکنید</div>
+                    </Alert>
+                </Row>
+            }
+            @if (Submited)
+            {
+                <Progress Color="BaseColor.Blue" Text="لطفا منتظر بمانید..." Indeterminate></Progress>
+            }
+        </Form>
+    </CardBody>
+</Card>

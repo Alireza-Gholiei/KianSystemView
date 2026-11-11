@@ -1,0 +1,51 @@
+﻿@inherits BaseComponent
+@layout LoginLayout
+@attribute [AllowAnonymous]
+@page "/Login"
+
+@using Despro.Blazor.Layout.Components.Dimmers
+
+<div>
+    <div style="justify-content: center;align-items: center;min-height: 100vh;display: flex;position: relative;">
+        <div class="form-container">
+            <img src="image-icon/logo.png" class="logo-pulse" alt="" />
+            <div class="fade-in pt-5">
+                <h2 class="mb-5 text-center text-4xl font-extrabold tracking-tight">ورود به سامانه</h2>
+                <Dimmer Active="@IsSubmit" Text="لطفا منتطر بمانید...">
+                    <EditForm Model="@LoginDto" OnValidSubmit="@SubmitLogin" FormName="LoginForm">
+                        <DataAnnotationsValidator />
+                        <div class="input-container">
+                            <label for="login-username">نام کاربری (کدملی)</label>
+                            <InputText id="login-username"
+                                       type="tel"
+                                       @bind-Value="LoginDto.UserName"
+                                       class="input-icon"
+                                       placeholder="نام کاربری (کدملی) خود را وارد کنید" />
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                            <ValidationMessage For="@(() => LoginDto.UserName)" class="error-message" />
+                        </div>
+                        <div class="input-container">
+                            <label for="login-password">رمز عبور</label>
+                            <InputText id="login-password"
+                                       type="@(ShowLoginPassword ? "text" : "password")"
+                                       @bind-Value="LoginDto.Password"
+                                       class="input-icon"
+                                       placeholder="رمز عبور خود را وارد کنید" />
+                            <svg class="toggle-password" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" @onclick="() => TogglePassword(true)">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                            </svg>
+                            <ValidationMessage For="@(() => LoginDto.Password)" class="error-message" />
+                        </div>
+                        <div class="space-y-3">
+                            <button type="submit" class="btn-glow">ورود</button>
+                            <button class="mt-4 text-blue-400" @onclick="@(() => NavigationManager.NavigateTo("/ForgotPassword"))">فراموشی رمز</button>
+                        </div>
+                    </EditForm>
+                </Dimmer>
+            </div>
+        </div>
+    </div>
+</div>

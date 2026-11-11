@@ -1,0 +1,30 @@
+﻿@using Client.Routes
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/" />
+    <title>سامانه کیان</title>
+
+    <link rel="shortcut icon" href="Image-Icon/LOGO.ico" />
+
+    <link rel="stylesheet" href="@Assets["_content/Despro.Blazor.Base/css/desproblazor-style.min.css"]" />
+    <link rel="stylesheet" href="@Assets["_content/Despro.Blazor.Base/css/fonts/desproblazor-font.min.css"]" />
+    <link rel="stylesheet" href="@Assets["Web.styles.css"]" />
+
+    <ImportMap />
+
+    <HeadOutlet @rendermode="new InteractiveAutoRenderMode()" />
+</head>
+
+<body>
+    <AppRoutes @rendermode="new InteractiveAutoRenderMode()" />
+
+    <script src="_framework/blazor.web.js"></script>
+    <script src="_content/Despro.Blazor.Base/js/desproblazor.min.js"></script>
+    <script src="_content/Storebook.Service/js/cookies.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+﻿@page "/Vacation/BindVacationCartabl"
+
+@attribute [StreamRendering]
+@inherits BaseComponent
+
+@using Services.Models.VacationDtos.VacationCartabl
+@using Storebook.Workflow.Components.Workflow
+
+<Table Item="VacationCartablGetDto" @bind-Items="_gridData" OnBindGrid=@OnBind>
+    <HeaderTemplate>
+        <strong>کارتابل مرخصی</strong>
+    </HeaderTemplate>
+
+    <ChildContent>
+        <Column Item="VacationCartablGetDto" Property="e => e.EmployeName" Title="نام و نام خانوادگی" Searchable Sortable />
+        <Column Item="VacationCartablGetDto" Property="e => e.VacationType" Title="نوع مرخصی" Searchable Sortable />
+        <Column Item="VacationCartablGetDto" Property="e => e.VacationAmount" Title="مدت" Searchable Sortable />
+        <Column Item="VacationCartablGetDto" Property="e => e.StateName" Title="نوع وضعیت" Searchable Sortable />
+        <Column Item="VacationCartablGetDto" Property="e => e.VacationStartDate" Title="تاریخ شروع" Searchable Sortable>
+            <Template>
+                @(new DateTime(context.VacationStartDate).ToString("yyyy/MM/dd"))
+            </Template>
+        </Column>
+        <Column Item="VacationCartablGetDto" Property="e => e.VacationEndDate" Title="تاریخ پایان" Searchable Sortable>
+            <Template>
+                @(new DateTime(context.VacationEndDate).ToString("yyyy/MM/dd"))
+            </Template>
+        </Column>
+        <Column Item="VacationCartablGetDto" Title="تائید مرخصی">
+            <Template>
+                <CartableState FormName="تائید مرخصی"
+                               InstanceId="@context.VacationId"
+                               WfStateId="@context.StateId"
+                               OnBindGrid="@OnBind"
+                               SubmitEvent="Submit" />
+            </Template>
+        </Column>
+    </ChildContent>
+</Table>

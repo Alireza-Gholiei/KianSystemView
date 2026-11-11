@@ -1,0 +1,21 @@
+﻿@inherits BaseComponent
+
+
+@using Despro.Blazor.Display.Components.TreeViews
+@using Services.Models._AuthDtos.FormDtos
+
+<TreeView @ref="_roleTreeView"
+          TItem="@FormGetChildDto"
+          Items="@Forms"
+          ChildSelectorAsync="e => GetSub(e)"
+          MultiSelect
+          SelectedItems="Selected"
+          SelectedItemsChanged="OnSelectedChanges">
+    <Template>
+        <Card StatusStart="BaseColor.Green" Size="CardSize.Small">
+            <CardBody style="padding:0.5rem">
+                <span>@($"{context.Name}-{context.FormType.MapFormType()}")</span>
+            </CardBody>
+        </Card>
+    </Template>
+</TreeView>

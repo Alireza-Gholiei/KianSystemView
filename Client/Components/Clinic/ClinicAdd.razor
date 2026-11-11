@@ -1,0 +1,46 @@
+﻿@page "/Clinic/ClinicAdd"
+@attribute [StreamRendering]
+@inherits BaseComponent
+
+<Card StatusTop="BaseColor.Primary">
+    <CardBody>
+        <CardHeader>
+            <h3>ثبت مراجعات درمانی</h3>
+        </CardHeader>
+
+        <EmployeDetail @bind-EmployeId="@ModelDto.EmployeId" />
+        <Form Model="@ModelDto" OnValidSubmit="Submit">
+            <Row>
+                <RowCol Md="4">
+                    <label class="form-label">نام پزشک</label>
+                    <InputText class="form-control" @bind-Value="@ModelDto.DoctorName"></InputText>
+                    <ValidationControl For="(() => ModelDto.DoctorName)"></ValidationControl>
+                </RowCol>
+                <RowCol Md="4">
+                    <label class="form-label">نام پرستار</label>
+                    <InputText class="form-control" @bind-Value="@ModelDto.NurseName"></InputText>
+                    <ValidationControl For="(() => ModelDto.NurseName)"></ValidationControl>
+                </RowCol>
+                <RowCol Md="4">
+                    <label class="form-label">اقلام وداروی مصرفی</label>
+                    <InputText class="form-control" @bind-Value="@ModelDto.ConsumableItems"></InputText>
+                    <ValidationControl For="(() => ModelDto.ConsumableItems)"></ValidationControl>
+                </RowCol>
+                <RowCol Md="4">
+                    <label class="form-label">علت مراجعه</label>
+                    <InputText class="form-control" @bind-Value="@ModelDto.ReasonReferral"></InputText>
+                    <ValidationControl For="(() => ModelDto.ReasonReferral)"></ValidationControl>
+                </RowCol>
+                <RowCol Md="4">
+                    <Datepicker @bind-SelectedDate="ModelDto.ReferralDate" TimePicker Label="تاریخ مراجعه" />
+                    <ValidationControl For="(() => ModelDto.ReferralDate)"></ValidationControl>
+                </RowCol>
+                <RowCol Md="6">
+                    <label class="form-label">توضیحات</label>
+                    <InputTextArea class="form-control" @bind-Value="@ModelDto.Description"></InputTextArea>
+                    <ValidationControl For="(() => ModelDto.Description)"></ValidationControl>
+                </RowCol>
+            </Row>
+        </Form>
+    </CardBody>
+</Card>

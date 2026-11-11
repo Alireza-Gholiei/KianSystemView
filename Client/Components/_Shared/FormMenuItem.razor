@@ -1,0 +1,37 @@
+﻿@using Services.Models._AuthDtos.FormDtos
+@using Despro.Blazor.Layout.Components.Navbars
+
+<NavbarMenuItem Text="@Item.Name" Href="@Item.FormUrl" Expandable="@(Item.Children?.Any() == true)">
+    <MenuItemIcon>
+        <Icon IconType="@GetIcon(Item.Icon)" />
+    </MenuItemIcon>
+
+    <SubMenu>
+        @if (Item.Children?.Any() == true)
+        {
+            @foreach (var child in Item.Children.OrderBy(c => c.Order))
+            {
+                <FormMenuItem Item="child" />
+            }
+        }
+    </SubMenu>
+</NavbarMenuItem>
+
+@code {
+    [Parameter] public FormGetMenuDto Item { get; set; } = null!;
+
+    private IIconType GetIcon(string? iconName)
+    {
+        if (string.IsNullOrEmpty(iconName))
+            return BaseIcons.Question_mark;
+
+        var property = typeof(BaseIcons)
+            .GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static)
+            .FirstOrDefault(p => p.Name.Equals(iconName, StringComparison.OrdinalIgnoreCase));
+
+        if (property?.GetValue(null) is IIconType icon)
+            return icon;
+
+        return BaseIcons.Question_mark;
+    }
+}

@@ -1,0 +1,78 @@
+﻿@page "/Vacation/VacationAdd"
+@inherits BaseComponent
+
+@attribute [StreamRendering]
+
+<Card StatusTop="BaseColor.Primary">
+    <CardBody>
+        <CardHeader>
+            <h3>ثبت مرخصی</h3>
+        </CardHeader>
+
+        <Form Model="@VacationAddDto" OnValidSubmit="Submit">
+            <Row>
+                <RowCol Md="12">
+                    <EmployeDetail @bind-EmployeId="VacationAddDto.EmployeId" />
+                </RowCol>
+                <RowCol Md="4">
+                    <Datepicker @bind-SelectedDate="VacationAddDto.StartDateVacation"
+                                Updated="UpdateStartDate"
+                                Label="تاریخ شروع مرخصی" />
+                    <ValidationControl For="(() => VacationAddDto.StartDateVacation)" />
+                </RowCol>
+                <RowCol Md="4">
+                    <Datepicker @bind-SelectedDate="VacationAddDto.EndDateVacation" IsDisabled Label="تاریخ پایان مرخصی" />
+                    <ValidationControl For="(() => VacationAddDto.EndDateVacation)" />
+                </RowCol>
+                <RowCol Md="12">
+                    <Row>
+                        @foreach (var i in VacationAddDto.VacationDetail)
+                        {
+                            <RowCol Md="3">
+                                <label class="form-label">نوع مرخصی</label>
+                                <Select Items="VacationTypeList"
+                                        @bind-SelectedValue="@i.VacationTypeId"
+                                        TextExpression="e => e.VacationName"
+                                        ConvertExpression="x=>x.Id"
+                                        NoSelectedText="*انتخاب نوع مرخصی*">
+                                </Select>
+                                <ValidationControl For="(() => i.VacationTypeId)" />
+                                <br />
+                                <Button Text="پاک کردن" @onclick="() => DeleteDetailRow(i)" BackgroundColor="BaseColor.Danger">
+                                </Button>
+                            </RowCol>
+                            <RowCol Md="3">
+                                <label class="form-label">مقدار مرخصی</label>
+                                <InputNumber class="form-control"
+                                             TValue="double"
+                                             Value="@i.Amount"
+                                             ValueExpression="() => i.Amount"
+                                             ValueChanged="(double val) => UpdateEndDate(i, val)" />
+                                <ValidationControl For="(() => i.Amount)" />
+                            </RowCol>
+                        }
+                    </Row>
+                </RowCol>
+                <RowCol Md="12">
+                    <Button Text="افزودن" @onclick="AddNewDetailRow" BackgroundColor="BaseColor.Blue">
+                    </Button>
+                </RowCol>
+                <RowCol Md="4">
+                    <label class="form-label">نام جانشین</label>
+                    <InputText class="form-control" @bind-Value="@VacationAddDto.DeputyName" />
+                    <ValidationControl For="(() => VacationAddDto.DeputyName)" />
+                </RowCol>
+                <RowCol Md="4">
+                    <label class="form-label">علت مرخصی</label>
+                    <InputText class="form-control" @bind-Value="@VacationAddDto.Cause" />
+                    <ValidationControl For="(() => VacationAddDto.Cause)" />
+                </RowCol>
+                <RowCol Md="12">
+                    <label class="form-label">توضیحات</label>
+                    <InputTextArea class="form-control" @bind-Value="@VacationAddDto.Description" />
+                    <ValidationControl For="(() => VacationAddDto.Description)" />
+                </RowCol>
+            </Row>
+        </Form>
+    </CardBody>
+</Card>
